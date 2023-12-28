@@ -1,0 +1,16 @@
+{
+    "name": "abrychkin/phpstormeducation",
+    "autoload": {
+        "files": [
+            "config/config.php"
+        ],
+        "psr-4": {
+            "App\\": "app/src/"
+        }
+    },
+    "require": {
+        "php": "^8.0",
+        "ext-mysqli": "*",
+        "smarty/smarty": "^4.3"
+    }
+}
