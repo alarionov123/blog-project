@@ -1,11 +1,6 @@
-{include file="components/header.tpl"}
+{extends file="index.tpl"}
+{block name=content}
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Log in form</title>
-</head>
-<body>
 <div>
     <div class="row align-items-center">
         <div class="mx-auto col-10 col-md-8 col-lg-6">
@@ -44,4 +39,4 @@
     </div>
 </body>
 </html>
-{include file="components/footer.tpl"}
+{/block}

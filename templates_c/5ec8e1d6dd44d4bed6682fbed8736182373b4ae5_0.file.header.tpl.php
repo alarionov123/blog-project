@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.4, created on 2023-12-28 13:46:19
+/* Smarty version 4.3.4, created on 2023-12-29 13:08:14
   from '/home/abrychkin/blog-project/templates/components/header.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.4',
-  'unifunc' => 'content_658d43eb838158_24933178',
+  'unifunc' => 'content_658e8c7eec9536_52962197',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '5ec8e1d6dd44d4bed6682fbed8736182373b4ae5' => 
     array (
       0 => '/home/abrychkin/blog-project/templates/components/header.tpl',
-      1 => 1703752717,
+      1 => 1703840006,
       2 => 'file',
     ),
   ),
@@ -20,8 +20,14 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_658d43eb838158_24933178 (Smarty_Internal_Template $_smarty_tpl) {
+function content_658e8c7eec9536_52962197 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!doctype html>
+<html>
+<head>
+    <title><?php echo $_smarty_tpl->tpl_vars['page_title']->value;?>
+</title>
+</head>
+<body>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -55,7 +61,7 @@ echo $_smarty_tpl->tpl_vars['user_data']->value['firstname'];
                 <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/auth?mode=become_a_writer">Become a writer</a>
+                <a class="nav-link" href="/writers?mode=apply_for_writer">Become a writer</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Disabled</a>

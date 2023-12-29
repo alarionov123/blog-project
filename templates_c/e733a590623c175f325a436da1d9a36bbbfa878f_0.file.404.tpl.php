@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 4.3.4, created on 2023-12-28 13:46:21
+/* Smarty version 4.3.4, created on 2023-12-29 13:08:14
   from '/home/abrychkin/blog-project/templates/common/404.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.4',
-  'unifunc' => 'content_658d43ed3bd0f2_79457294',
+  'unifunc' => 'content_658e8c7eebfb36_06392942',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
@@ -22,7 +22,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:components/footer.tpl' => 1,
   ),
 ),false)) {
-function content_658d43ed3bd0f2_79457294 (Smarty_Internal_Template $_smarty_tpl) {
+function content_658e8c7eebfb36_06392942 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_subTemplateRender("file:components/header.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
 <div class="jumbotron mt-4">

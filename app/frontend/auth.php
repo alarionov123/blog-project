@@ -24,14 +24,12 @@ if (empty($mode)) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
     $data = [
         'email' => $_POST['email'],
         'password' => $_POST['password'],
     ];
 
     if ($mode === 'register') {
-
         $params = [
             'firstname' => $_POST['firstname'],
             'lastname' => $_POST['lastname'],
@@ -42,44 +40,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $user = new Users($data);
 
         if ($user->updateUserData($data)) {
-            Notifications::setNotification(Notifications::NOTIFICATION_SUCCESS, 'You have been registered successfully. Please log in.');
+            Notifications::setNotification(
+                Notifications::NOTIFICATION_SUCCESS,
+                'You have been registered successfully. Please log in.'
+            );
             Router::redirect('auth?mode=auth');
         } else {
             Notifications::setNotification(Notifications::NOTIFICATION_ERROR, 'Something went wrong.');
         }
-
     } elseif ($mode === 'auth') {
-
         $user = new Users($data);
 
         if ($user->isUserExist() && $user->authUser($data)) {
-
             $user_data = $user->getUserDataByEmail($data['email']);
-            Notifications::setNotification(Notifications::NOTIFICATION_SUCCESS, 'You have been authorized successfully.');
+            Notifications::setNotification(
+                Notifications::NOTIFICATION_SUCCESS,
+                'You have been authorized successfully.'
+            );
             $_SESSION['user_data'] = $user_data;
             Router::redirect('profile?mode=view');
         } else {
-            Notifications::setNotification(Notifications::NOTIFICATION_ERROR, 'Incorrect email or password. Please check the specified info and try again.');
+            Notifications::setNotification(
+                Notifications::NOTIFICATION_ERROR,
+                'Incorrect email or password. Please check the specified info and try again.'
+            );
         }
-
-    } elseif ($mode === 'become_a_writer') {
-        $params = [
-            'user_type' => 'W',
-        ];
-
-        $data = array_merge($data, $params);
-        $user = new Users($data);
-
-        if ($user->updateUserData($data)) {
-            Notifications::setNotification(Notifications::NOTIFICATION_SUCCESS, 'You have successfully registered as writer.');
-            $user_data = $user->getUserDataByEmail($data['email']);
-            $_SESSION['user_data'] = $user_data;
-            Router::redirect('profile?mode=view');
-        } else {
-            Notifications::setNotification(Notifications::NOTIFICATION_ERROR, 'Something went wrong.');
-        }
-
     }
 }
 $smarty->assign('mode', $mode);
+$smarty->assign('page_title', $mode);
 $smarty->display('auth.tpl');

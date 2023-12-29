@@ -10,5 +10,5 @@ if (isset($_SESSION['notification'])) {
 if (isset($_SESSION['user_data'])) {
     $smarty->assign('user_data', $_SESSION['user_data']);
 }
-$smarty->display('index.tpl');
+$smarty->display('home.tpl');
 ?>

@@ -1,5 +1,5 @@
-{include file="components/header.tpl"}
-{include file="common/notifications.tpl"}
+{extends file="index.tpl"}
+{block name=content}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -46,5 +46,5 @@
     </form>
 </div>
 {/if}
-{include file="components/footer.tpl"}
 </body>
+{/block}

@@ -51,6 +51,7 @@ $smarty->assign([
     'user_data' => $user_data,
     'mode' => $mode,
     'error' => $error ?? '',
+    'page_title' => $mode
 ]);
 $smarty->display('profile.tpl');
 

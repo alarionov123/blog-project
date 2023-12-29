@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 4.3.4, created on 2023-12-28 13:46:19
+/* Smarty version 4.3.4, created on 2023-12-29 13:08:14
   from '/home/abrychkin/blog-project/templates/components/footer.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.4',
-  'unifunc' => 'content_658d43eb83a157_81831494',
+  'unifunc' => 'content_658e8c7eecd249_43053456',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_658d43eb83a157_81831494 (Smarty_Internal_Template $_smarty_tpl) {
+function content_658e8c7eecd249_43053456 (Smarty_Internal_Template $_smarty_tpl) {
 ?><footer class="container">
     <p>&copy; Exikane 2023</p>
 </footer>

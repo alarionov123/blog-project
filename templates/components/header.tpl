@@ -1,4 +1,9 @@
 <!doctype html>
+<html>
+<head>
+    <title>{$page_title}</title>
+</head>
+<body>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -30,7 +35,7 @@
                 <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/auth?mode=become_a_writer">Become a writer</a>
+                <a class="nav-link" href="/writers?mode=apply_for_writer">Become a writer</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Disabled</a>
