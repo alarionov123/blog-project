@@ -4,6 +4,8 @@ use App\Users;
 use App\SmartyInit;
 use App\Router;
 use App\Notifications;
+use App\UserTypes;
+use App\Writer;
 
 $smarty = new SmartyInit();
 
@@ -15,8 +17,8 @@ if (isset($_SESSION['notification'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $data = $_POST;
     if ($mode === 'apply_for_writer') {
-        $data = $_POST;
         $params = [
             'user_type' => 'W',
         ];
@@ -30,9 +32,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             );
             $user_data = $user->getUserDataByEmail($data['email']);
             $_SESSION['user_data'] = $user_data;
-            Router::redirect('profile?mode=view');
+            Router::redirect('writers?mode=auth');
         } else {
             Notifications::setNotification(Notifications::NOTIFICATION_ERROR, 'Something went wrong.');
+        }
+    } elseif ($mode === 'auth') {
+        if (empty($data['email']) && Users::getUserType($data['email']) !== UserTypes::WRITER) {
+            Notifications::setNotification(Notifications::NOTIFICATION_ERROR, 'Something went wrong.');
+            return;
         }
     }
 }

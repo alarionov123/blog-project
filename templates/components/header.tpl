@@ -46,6 +46,7 @@
                     {if !isset($user_data)}
                         <a class="dropdown-item" href="/auth?mode=auth">Log in</a>
                         <a class="dropdown-item" href="/auth?mode=register">Register</a>
+                        <a class="dropdown-item" href="/writers?mode=auth">Log in as writer</a>
                     {/if}
                     <a class="dropdown-item" href="/profile?mode=view">Profile</a>
                 </div>

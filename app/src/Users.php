@@ -84,4 +84,16 @@ class Users
         Router::redirect('/');
     }
 
+    public static function getUserType($email) {
+        if (!$email) {
+            return;
+        }
+        $db = new Database();
+        $query = "SELECT user_type WHERE email = '{$email}';";
+        $result = $db->query($query);
+        $row = $result->fetch_row();
+
+        return !empty($row[0]) ?? $row[0];
+    }
+
 }
