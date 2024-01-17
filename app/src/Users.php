@@ -26,7 +26,7 @@ class Users
         return $result->num_rows;
     }
 
-    public function getUserDataByEmail($email, $get_password = false) : array
+    public function getUserDataByEmail($email, $get_password = false): array
     {
         $password = $get_password ?? ', password';
         $user_data = "SELECT id,email $password, firstname,lastname,user_type FROM users WHERE email = '$email';";
@@ -37,10 +37,11 @@ class Users
         }
         return $execute->fetch_array(MYSQLI_ASSOC);
     }
-/*
- * updates user data
- * return - updated user_id
- */
+
+    /*
+     * updates user data
+     * return - updated user_id
+     */
     public function updateUserData($user_data)
     {
         if (!empty($user_data['password'])) {
@@ -62,7 +63,9 @@ class Users
 
         if ($this->connection->query($query)) {
             // FIXME
-            $data = isset($user_data['id']) ? Users::find($user_data['id']) : $this->getUserDataByEmail($user_data['email']);
+            $data = isset($user_data['id']) ? Users::find($user_data['id']) : $this->getUserDataByEmail(
+                $user_data['email']
+            );
 
             $_SESSION['user_data'] = $data;
 
@@ -71,8 +74,8 @@ class Users
         return false;
     }
 
-
-    public function authUser($data) {
+    public function authUser($data)
+    {
         $condition = "email = '{$data['email']}'";
 
         $query = "SELECT id, email, password FROM users WHERE " . $condition;
@@ -81,18 +84,23 @@ class Users
         if (!$execute || mysqli_num_rows($execute) <= 0) {
             return [];
         }
-         $fetched_data = $execute->fetch_array(MYSQLI_ASSOC);
-
-         return password_verify($data['password'], (string) $fetched_data['password']) ?? $fetched_data['id'];
+        $fetched_data = $execute->fetch_array(MYSQLI_ASSOC);
+        if (!password_verify($data['password'], (string)$fetched_data['password'])) {
+            return false;
+        }
+        $_SESSION['user_data']['id'] = $fetched_data['id'];
+        return true;
     }
 
-    public static function userLogout($user_id = 0) {
+    public static function userLogout($user_id = 0)
+    {
         session_unset();
         session_destroy();
         Router::redirect('/');
     }
 
-    public static function getUserType($email) {
+    public static function getUserType($email)
+    {
         if (!$email) {
             return;
         }
@@ -104,7 +112,8 @@ class Users
         return !empty($row[0]) ?? $row[0];
     }
 
-    public static function find($user_id) {
+    public static function find($user_id)
+    {
         if (!$user_id) {
             return;
         }
@@ -114,5 +123,12 @@ class Users
         $result = $db->query($query);
 
         return $result->fetch_array(MYSQLI_ASSOC);
+    }
+
+    public static function fetchCurrentUser()
+    {
+        $user_id = $_SESSION['user_data']['id'] ?? null;
+
+        return $user_id ? Users::find($user_id) : [];
     }
 }

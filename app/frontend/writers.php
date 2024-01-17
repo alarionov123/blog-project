@@ -23,15 +23,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             'user_type' => 'W',
         ];
         $data = array_merge($data, $params);
-        $user = new Users($data);
+        $writer = new Writer($data);
 
-        if ($user->updateUserData($data)) {
+        if ($writer->updateUserData($data)) {
             Notifications::setNotification(
                 Notifications::NOTIFICATION_SUCCESS,
                 'You have successfully registered as writer.'
             );
-            $user_data = $user->getUserDataByEmail($data['email']);
-            $_SESSION['user_data'] = $user_data;
+
             Router::redirect('writers?mode=auth');
         } else {
             Notifications::setNotification(Notifications::NOTIFICATION_ERROR, 'Something went wrong.');
@@ -41,9 +40,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             Notifications::setNotification(Notifications::NOTIFICATION_ERROR, 'Something went wrong.');
             return;
         }
+        $writer = new Users($data);
+
+        if ($writer->isUserExist() && $writer->authUser($data)) {
+            Notifications::setNotification(
+                Notifications::NOTIFICATION_SUCCESS,
+                'You have been authorized successfully.'
+            );
+            Router::redirect('writer?mode=view');
+        } else {
+            Notifications::setNotification(
+                Notifications::NOTIFICATION_ERROR,
+                'Incorrect email or password. Please check the specified info and try again.'
+            );
+        }
     }
 }
 
 $smarty->assign('mode', $mode);
 $smarty->assign('page_title', $mode);
-$smarty->display('apply_for_writer.tpl');
+$smarty->assign('user_data', Writer::fetchCurrentUser());
+$smarty->display('writers.tpl');

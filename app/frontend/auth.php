@@ -24,19 +24,10 @@ if (empty($mode)) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $data = [
-        'email' => $_POST['email'],
-        'password' => $_POST['password'],
-    ];
+
+    $data = $_POST;
 
     if ($mode === 'register') {
-        $params = [
-            'firstname' => $_POST['firstname'],
-            'lastname' => $_POST['lastname'],
-            'user_type' => 'C',
-        ];
-
-        $data = array_merge($data, $params);
         $user = new Users($data);
 
         if ($user->updateUserData($data)) {
@@ -52,12 +43,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $user = new Users($data);
 
         if ($user->isUserExist() && $user->authUser($data)) {
-            $user_data = $user->getUserDataByEmail($data['email']);
             Notifications::setNotification(
                 Notifications::NOTIFICATION_SUCCESS,
                 'You have been authorized successfully.'
             );
-            $_SESSION['user_data'] = $user_data;
             Router::redirect('profile?mode=view');
         } else {
             Notifications::setNotification(

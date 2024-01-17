@@ -1,34 +1,33 @@
 <?php
 
-use App\Users;
+use App\Notifications;
+use App\SmartyInit;
+use App\Writer;
 
-if (!isset($_GET['mode'])) {
+$smarty = new SmartyInit();
+
+$mode = isset($_GET['mode']) ? $_GET['mode'] : '';
+
+if (isset($_SESSION['notification'])) {
+    Notifications::displayNotification($_SESSION['notification']);
+    unset($_SESSION['notification']);
+}
+
+if (!isset($mode)) {
     header("Location: /");
     exit;
 }
 
-if ($_GET['mode'] === 'logout') {
+if ($mode === 'logout') {
     session_destroy();
     header("Location: /");
 }
 
-if ($_GET['mode'] === 'manage_blog') {
+if ($mode === 'manage_blog') {
 
-    if (!empty($_POST)) {
-
-    }
 }
-?>
-<div class="container-profile">
-<form>
-    <div class="form-group">
-        <label for="blog_title">Blog's title</label>
-        <input type="text" class="form-control" id="blog_title" placeholder="Put title in">
-    </div>
-    <div class="form-group">
-        <label for="blog_content">Content</label>
-        <textarea class="form-control" id="blog_content" rows="15"></textarea>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-</div>
+
+$smarty->assign('mode', $mode);
+$smarty->assign('page_title', $mode);
+$smarty->assign('user_data', Writer::fetchCurrentUser());
+$smarty->display('writer_account.tpl');

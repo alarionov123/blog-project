@@ -22,7 +22,7 @@ if (empty($_SESSION['user_data'])) {
     Router::redirect('auth?mode=auth');
 }
 
-$user_data = fetchCurrentUser();
+$user_data = Users::fetchCurrentUser();
 $user = new Users($user_data);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -47,7 +47,6 @@ if ($mode === 'logout') {
 $smarty->assign([
     'user_data' => $user_data,
     'mode' => $mode,
-    'error' => $error ?? '',
     'page_title' => $mode
 ]);
 $smarty->display('profile.tpl');

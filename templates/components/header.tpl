@@ -43,6 +43,7 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">My account</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown01">
+
                     {if !isset($user_data)}
                         <a class="dropdown-item" href="/auth?mode=auth">Log in</a>
                         <a class="dropdown-item" href="/auth?mode=register">Register</a>

@@ -2,7 +2,7 @@
 
 namespace App;
 
-class Writer
+class Writer extends Users
 {
 
 }
