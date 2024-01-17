@@ -22,16 +22,13 @@ if (empty($_SESSION['user_data'])) {
     Router::redirect('auth?mode=auth');
 }
 
-$user = new Users($_SESSION['user_data']);
-$user_data = $_SESSION['user_data'];
+$user_data = fetchCurrentUser();
+$user = new Users($user_data);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($mode === 'edit') {
         if (!empty($_POST)) {
             if ($user->updateUserData($_POST)) {
-                $data = $user->getUserDataByEmail($_POST['email']);
-                $_SESSION['user_data'] = $data;
-
                 Notifications::setNotification(
                     Notifications::NOTIFICATION_SUCCESS,
                     'Your profile data has been successfully changed'

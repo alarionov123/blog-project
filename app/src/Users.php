@@ -60,7 +60,15 @@ class Users
                 (" . implode(', ', array_values($prepared_data)) . ")";
         }
 
-        return $this->connection->query($query);
+        if ($this->connection->query($query)) {
+            // FIXME
+            $data = isset($user_data['id']) ? Users::find($user_data['id']) : $this->getUserDataByEmail($user_data['email']);
+
+            $_SESSION['user_data'] = $data;
+
+            return true;
+        }
+        return false;
     }
 
 
@@ -96,4 +104,15 @@ class Users
         return !empty($row[0]) ?? $row[0];
     }
 
+    public static function find($user_id) {
+        if (!$user_id) {
+            return;
+        }
+        $db = new Database();
+        $query = "SELECT email, firstname, lastname, user_type FROM users WHERE id = '{$user_id}';";
+
+        $result = $db->query($query);
+
+        return $result->fetch_array(MYSQLI_ASSOC);
+    }
 }
